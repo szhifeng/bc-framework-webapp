@@ -34,7 +34,7 @@ define(["bc.core"], function (bc) {
     return fetch(options.url, fetchOptions).then(res => {
       if (res.status === 204) return null;
       else if (res.ok) {
-        let ct = res.headers.get('Content-Type').toLowerCase();
+        let ct = (res.headers.get('Content-Type') || '').toLowerCase();
         if (ct.indexOf('application/json') !== -1) return res.json() // json
         else if (ct.startsWith('text/')) return res.text()           // text/plain、text/html
         else return res.json() // 默认 json
